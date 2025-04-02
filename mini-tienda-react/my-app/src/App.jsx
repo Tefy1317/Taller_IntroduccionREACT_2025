@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
-import ProductList from './components/ProductList'
-import Cart from './components/Cart'
 import Home from './components/Home'
+import ProductList from './components/ProductList'
+import './App.css'
+import Cart from './components/cart'
 import Contacto from './components/Contact'
 
-
-const App = () => {
+function App() {
   const [products] = useState([
     { id: 1, name: 'Tenis Celestes para Damas', price: 550.00, image: '/tm.jpeg' },
     { id: 2, name: 'Tacones de 8cm', price: 650.00, image: '/cm.jpg' },
@@ -14,16 +14,18 @@ const App = () => {
     { id: 4, name: 'Tenis azules para Caballero', price: 550.00, image: '/th.jpg' },
     { id: 5, name: 'Zapato Casual para Caballero', price: 700.00, image: '/ch.jpg' },
     { id: 6, name: 'Sandalia para Caballero', price: 150.00, image: '/sh.jpeg' },
-    //{ id: 7, name: 'Sudadera Java', price: 30.00 },
-    //{ id: 8, name: 'Mousepad PHP', price: 12.00 },
-    //{ id: 9, name: 'Botella C++', price: 22.00 },
-    //{ id: 10, name: 'Gafas Ruby', price: 28.00 }
   ])
 
- const [cart, setCart] = useState([])
+  const [cart, setCart] = useState([])
+
+  const [successMessage, setSuccessMessage] = useState('');
 
   const addToCart = (product) => {
     setCart([...cart, product])
+    setSuccessMessage(`✅ Se agregó el producto al carrito exitosamente`);
+    setTimeout(() => {
+      setSuccessMessage('');
+    }, 3000);
   }
 
   const removeFromCart = (itemToRemove) => {
@@ -39,6 +41,7 @@ const App = () => {
     setCart([])
   }
 
+
   return (
     <div className="container">
       <div className="Menu">   
@@ -53,9 +56,9 @@ const App = () => {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/productos" element={<ProductList products={products} addToCart={addToCart} />} />
+        <Route path="/productos" element={<ProductList products={products} addToCart={addToCart}  successMessage={successMessage} />} />
         <Route path="/carrito" element={<Cart cart={cart} removeFromCart={removeFromCart} clearCart={clearCart} />} />
-        <Route path="/contacto" element={<Contacto />} />
+        <Route path="/contacto" element={<Contacto />}  />
       </Routes>
     </div>
   )

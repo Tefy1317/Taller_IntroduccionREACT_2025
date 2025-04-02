@@ -1,9 +1,23 @@
 import React from 'react';
 
-const ProductList = ({ products, addToCart }) => {
+const ProductList = ({ products, addToCart, successMessage }) => {
   return (
     <div>
       <h2>🛍️ Productos</h2>
+
+      {successMessage && (
+        <div style={{
+          backgroundColor: '#d4edda',
+          color: '#155724',
+          padding: '10px',
+          marginBottom: '15px',
+          border: '1px solid #c3e6cb',
+          borderRadius: '5px',
+        }}>
+          {successMessage}
+        </div>
+      )}
+
       <div
         style={{
           display: 'grid',
